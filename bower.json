@@ -1,0 +1,24 @@
+{
+  "name": "bigquery-data-converter",
+  "version": "0.1.0",
+  "authors": [
+    "Tyler Johnson <mail@tyler-johnson.ca>"
+  ],
+  "description": "Converts Bigquery table data to another format",
+  "main": "bigquery-data-convertaer",
+  "keywords": [
+    "web-components",
+    "bigquery"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bigquery-tables-selector": "^0.1.0"
+  }
+}
