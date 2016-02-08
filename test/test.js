@@ -1,6 +1,5 @@
 var webdriverio = require("webdriverio"),
 assert = require("assert"),
-fs = require("fs"),
 options = {
   host: "localhost",
   port: 4444,
@@ -102,7 +101,27 @@ describe("end to end tests", function() {
       });
     });
 
-    it("converts", function() {
+    xit("converts to the expected format for ChartJS Line", function() {
+    });
+
+    it("emits new-data", ()=>{
+      return client.execute(()=>{
+        document.querySelector("bigquery-data-converter").addEventListener("new-data", (e)=>{
+          document.querySelector("bigquery-data-converter").setAttribute("dataEmitted", "true");
+        });
+      })
+      .then(()=>{return client.selectByIndex("bigquery-tables-selector", 1);})
+      .then(()=>{return client.waitUntil(newDataEmitted, 2000);})
+
+      function newDataEmitted() {
+        return client.execute(()=>{
+          return document.querySelector("bigquery-data-converter").getAttribute("dataEmitted");
+        })
+        .then((domResult)=>{
+          console.log(domResult);
+          return domResult.value === "true";
+        });
+      }
     });
   });
 
