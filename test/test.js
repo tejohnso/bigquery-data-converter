@@ -101,7 +101,21 @@ describe("end to end tests", function() {
       });
     });
 
-    xit("converts to the expected format for ChartJS Line", function() {
+    it("converts to the expected format for ChartJS Line", function() {
+      var tableData = {
+      },
+      expectedConversion = {
+      };
+
+      return client.execute((tableData)=>{
+        return document.querySelector("bigquery-data-converter").converter(tableData);
+      }, tableData)
+      .then((domResult)=>{
+        console.log("DOMRESULT");
+        domResult.value
+        console.log("DOMRESULT");
+        assert.deepEqual(domResult.value, expectedConversion);
+      });
     });
 
     it("emits data", ()=>{

@@ -44,8 +44,10 @@ const proto = Object.create(HTMLElement.prototype, {
 
 document.registerElement(thisElementName, {prototype: proto});
 
-function convert() {
+function convert(data) {
   var conversionFn = chartJsLine;
+
+  if (data) {return conversionFn(data);}
 
   gapi.client.bigquery.tabledata.list({
     projectId: document.querySelector(this.getAttribute("projectId")).value,
