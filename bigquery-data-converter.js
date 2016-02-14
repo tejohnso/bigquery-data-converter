@@ -1,3 +1,4 @@
+(function() {
 const thisElementName = "bigquery-data-converter",
 defaultAttributes = {
   projectId: "bigquery-projects-selector select",
@@ -87,3 +88,4 @@ function convert() {
   }
 }
 
+}());
