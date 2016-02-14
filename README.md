@@ -15,7 +15,7 @@ x-title-3 | y-value-1 | y-value-2 | y-value-3 | ...
 Note that the current row limit is 1000
 
 ### Usage
-Requires *gapi.client* library (eg: [google-client-loader](https://elements.polymer-project.org/elements/google-apis)).  See the test section for a working example.  The element will emit event *new-data* when the data has been converted.
+Requires *gapi.client* library (eg: [google-client-loader](https://elements.polymer-project.org/elements/google-apis)).  See the test section for a working example.  The element will emit event *new-data* when the data has been converted and will check for new data whenever any of the target elements change (see the *attributes* section below).
 
 #### Attributes
 Attribute Name | Description | Default
@@ -50,4 +50,3 @@ npm run teardown-test-env
 ### Enhancements
 
  - Allow direct population of source data or table id rather than using attributes.
- - Emit onchange when data is changed so that target element/attrib isn't the only way to pass on the converted data.
