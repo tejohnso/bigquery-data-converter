@@ -104,9 +104,9 @@ describe("end to end tests", function() {
     xit("converts to the expected format for ChartJS Line", function() {
     });
 
-    it("emits new-data", ()=>{
+    it("emits data", ()=>{
       return client.execute(()=>{
-        document.querySelector("bigquery-data-converter").addEventListener("new-data", (e)=>{
+        document.querySelector("bigquery-data-converter").addEventListener("data", (e)=>{
           document.querySelector("bigquery-data-converter").setAttribute("dataEmitted", "true");
         });
       })
@@ -118,8 +118,7 @@ describe("end to end tests", function() {
           return document.querySelector("bigquery-data-converter").getAttribute("dataEmitted");
         })
         .then((domResult)=>{
-          console.log(domResult);
-          return domResult.value === "true";
+          return domResult.value;
         });
       }
     });
