@@ -15,7 +15,7 @@ x-title-3 | y-value-1 | y-value-2 | y-value-3 | ...
 Note that the current row limit is 1000
 
 ### Usage
-Requires *gapi.client* library (eg: [google-client-loader](https://elements.polymer-project.org/elements/google-apis)).  See the test section for a working example.  The element will emit event *new-data* when the data has been converted and will check for new data whenever any of the target elements change (see the *attributes* section below).
+Requires *gapi.client* library (eg: [google-client-loader](https://elements.polymer-project.org/elements/google-apis)).  See the test section for a working example.  The element will emit event *data* when the data has been converted and will check for new data whenever any of the target elements change (see the *attributes* section below).  An *error* event will be dispatched when appropriate.
 
 #### Attributes
 Attribute Name | Description | Default

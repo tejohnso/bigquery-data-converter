@@ -6,11 +6,10 @@ defaultAttributes = {
 };
 
 const proto = Object.create(HTMLElement.prototype, {
-  converter: {
-    value: convert.bind(this)
-  },
   createdCallback: {
     value: function() {
+      this.converter = convert.bind(this);
+
       Object.keys(defaultAttributes).forEach((attributeName)=>{
         this.setAttribute(attributeName,
         this.getAttribute(attributeName) || defaultAttributes[attributeName]);
@@ -26,7 +25,7 @@ const proto = Object.create(HTMLElement.prototype, {
   },
   attributeChangedCallback: {
     value: function (name, oldVal, newVal) {
-      if (defaultAttributes.indexOf(name) === -1) {return;}
+      if (!defaultAttributes.hasOwnProperty(name)) {return;}
 
       var oldEl = document.querySelector(oldVal);
       var newEl = document.querySelector(newVal);
@@ -54,7 +53,9 @@ function convert() {
     maxResults: 1000
   })
   .then((resp)=>{
-    this.dispatchEvent(new CustomEvent("new-data", {detail: conversionFn(resp)}));
+    this.dispatchEvent(new CustomEvent("data", {detail: conversionFn(resp)}));
+  }, (err)=>{
+    this.dispatchEvent(new CustomEvent("error", {detail: err}));
   });
 
   function chartJsLine(data) {
