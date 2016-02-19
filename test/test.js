@@ -31,7 +31,7 @@ describe("end to end tests", function() {
     .then(()=>{return client.waitForEnabled("google-signin");})
     .then(()=>{return client.click("google-signin");})
     .then(()=>{return client.getTabIds();})
-    .then((ids)=>{return ids.pop()})
+    .then((ids)=>{return ids.pop();})
     .then((id)=>{return client.switchTab(id);})
     .then(()=>{return client.waitForExist("#Email", 10000);})
     .then(()=>{return client.setValue("#Email", email + "\n");})
@@ -103,29 +103,41 @@ describe("end to end tests", function() {
 
     it("converts to the expected format for ChartJS Line", function() {
       var tableData = {
+        "kind": "bigquery#queryResponse",
+        "schema": {"fields": [{"Name":"xtitle"},{"name":"yset1"}]},
+        "rows":[{"f":[{"v":"xval"},{"v":"yval1"}]}],
+        "jobComplete":true
       },
       expectedConversion = {
+        "labels":["xval"],
+        "datasets":[{
+          "label":"yset1",
+          "fillColor":"rgba(220,220,220,0.2)",
+          "strokeColor":"rgba(220,220,220,1)",
+          "pointColor":"rgba(220,220,220,1)",
+          "pointStrokeColor":"#fff",
+          "pointHighlightFill":"#fff",
+          "pointHighlightStroke":"rgba(220,220,220,1)",
+          "data":["yval1"]
+        }]
       };
 
       return client.execute((tableData)=>{
         return document.querySelector("bigquery-data-converter").converter(tableData);
       }, tableData)
       .then((domResult)=>{
-        console.log("DOMRESULT");
-        domResult.value
-        console.log("DOMRESULT");
         assert.deepEqual(domResult.value, expectedConversion);
       });
     });
 
     it("emits data", ()=>{
       return client.execute(()=>{
-        document.querySelector("bigquery-data-converter").addEventListener("data", (e)=>{
+        document.querySelector("bigquery-data-converter").addEventListener("data", ()=>{
           document.querySelector("bigquery-data-converter").setAttribute("dataEmitted", "true");
         });
       })
       .then(()=>{return client.selectByIndex("bigquery-tables-selector", 1);})
-      .then(()=>{return client.waitUntil(newDataEmitted, 2000);})
+      .then(()=>{return client.waitUntil(newDataEmitted, 9000);})
 
       function newDataEmitted() {
         return client.execute(()=>{
